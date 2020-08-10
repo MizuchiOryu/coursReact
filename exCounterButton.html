@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Counter extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {count: 0};
+                this.clickStart = this.clickStart.bind(this);
+                this.clickStop = this.clickStop.bind(this);
+                this.clickReset = this.clickReset.bind(this);
+
+            }
+
+            clickStart() {
+                this.intervalle = setInterval (
+                    () => {
+                        this.setState( (prevState, props) => ({ count:  + props.increment + prevState.count }));
+                    }, 1000
+                )
+            }
+
+            clickStop() {
+                clearInterval(this.intervalle);
+            }
+
+            clickReset() {
+                this.setState(
+                    () => ({count: 0})
+                );
+                clearInterval(this.intervalle);
+            }
+            
+            render() {
+                return (
+                    <div>
+                        <button name="start" onClick={this.clickStart} > Start (+{this.props.increment}) </button>
+                        <button name="stop" onClick={this.clickStop}> Stop </button>
+                        <button name="reset" onClick={this.clickReset}> Reset </button>
+                        <p> Compteur : {this.state.count} </p>
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            [<Counter increment="1" />,
+            <Counter increment="2" />],
+            container,
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
