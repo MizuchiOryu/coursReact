@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Clock extends React.Component {
+            constructor(props) {
+                // récupération de la propriété props
+                super(props);
+                // affiche "Hello Clock"
+                console.log(this.props.message);
+                // propriété mutable
+                this.state = {date: new Date().toLocaleTimeString()};
+            }
+
+            componentDidMount() {
+                this.intervalle = setInterval (
+                    () => {
+                        this.setState({
+                            date: new Date().toLocaleTimeString()
+                        })
+                    }, 1000
+                )
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.intervalle);
+            }
+            
+            render() {
+                return (
+                    <div>
+                        <p>Time: { this.state.date }</p>
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            <Clock message="Hello Clock" />,
+            container
+        );
+
+        setTimeout(
+            () => {ReactDOM.unmountComponentAtNode(container)}
+            ,10000
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
