@@ -51,13 +51,13 @@
             render(){
                 return (
                     <div>
-                        { this.props.choice ? <ListDragon/> : <ListKnight/> }
+                        { this.props.choice === 'Dragons' ? <ListDragon/> : <ListKnight/> }
                     </div>
                 )
             }
         }
         ReactDOM.render(
-            <App choice=""/>,
+            <App choice="Dragons"/>,
             document.getElementById('root')
         );
     </script>
