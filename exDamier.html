@@ -48,13 +48,11 @@
                 "#005cb2",
                 "#1976d2",
                 ];
-                let n = 0;
                 let damier = [];
 
-                while (n <= 15) {
+                for (let n = 0; n <=15; n++) {
                     damier.push(<Square color={colors[n % colors.length]} num={n}/>);
                     if(n % colors.length == 3) damier.push(<br/>)
-                    n++;
                 }
 
                 return (
