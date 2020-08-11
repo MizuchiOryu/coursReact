@@ -22,6 +22,7 @@
         class Counter extends React.Component {
             constructor(props) {
                 super(props);
+                this.intervalle = null;
                 this.state = {count: 0};
                 this.clickStart = this.clickStart.bind(this);
                 this.clickStop = this.clickStop.bind(this);
@@ -30,9 +31,10 @@
             }
 
             clickStart() {
+                if(this.intervalle){clearInterval(this.intervalle)};
                 this.intervalle = setInterval (
                     () => {
-                        this.setState( (prevState, props) => ({ count:  + props.increment + prevState.count }));
+                        this.setState({count: this.state.count + this.props.increment});
                     }, 1000
                 )
             }
@@ -63,8 +65,8 @@
         const container = document.getElementById('root');
 
         ReactDOM.render(
-            [<Counter increment="1" />,
-            <Counter increment="2" />],
+            [<Counter increment={1} />,
+            <Counter increment={2} />],
             container,
         );
 
