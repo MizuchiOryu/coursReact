@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Elems extends React.Component {
+            constructor(props) {
+                super(props);
+
+            }
+            
+            render() {
+                let hashes = [];
+
+                this.props.elems.forEach(
+                    (elem, index) => hashes.push(<li key={elem.key}> {elem.hash} <button onClick={() => this.props.remove(index)} > Supprimer </button> </li>)
+                )
+                return (
+                    hashes
+                );
+            }
+        }
+
+        class App extends React.Component {
+
+            constructor(props) {
+                super(props);
+
+                this.state = {elems : []};
+                this.addHash = this.addHash.bind(this);
+                this.removeHandler = this.removeHandler.bind(this);
+            }
+
+            addHash() {
+                this.setState(
+                    () => this.state.elems.push( 
+                        {
+                            key : Math.random() + "" ,
+                            hash : Math.random().toString(16)
+                        }
+                    )
+                );
+            }
+
+            removeHandler(index) {
+                this.setState(
+                    () => this.state.elems.splice(index,1)
+                );
+            }
+
+            render() {
+
+                
+
+                return (
+                    <div>
+                        <button onClick={this.addHash} > Générer </button>
+                        <Elems elems={this.state.elems} remove={this.removeHandler} />
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            <App />,
+            container
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
