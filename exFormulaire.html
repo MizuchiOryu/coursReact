@@ -53,9 +53,7 @@
                     console.log(`${this.state.value} existe déjà !`);
                 else {
                     this.setState(
-                        () => {
-                            this.state.users.push(this.state.value);
-                        },() => {console.log(this.state.users);}
+                        {users: [...this.state.users,this.state.value]}
                     )
                 }
                 event.preventDefault();
