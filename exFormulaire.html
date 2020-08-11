@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class UserList extends React.Component {
+
+            render() {
+
+                let listUsers = [];
+
+                this.props.users.forEach(
+                    username => listUsers.push(<li> {username} </li> )
+                )
+
+                return (
+                    listUsers
+                );
+            }
+        }
+
+        class UserForm extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: '', users: []};
+            }
+
+            handleChange = (event) => {
+                this.setState({value: event.target.value.toUpperCase()});
+            }
+
+            handleSubmit = (event) => {
+                if(this.state.value === "") {
+                    console.log(`Le champ est vide !`);
+                }
+                else if(this.state.users.includes(this.state.value))
+                    console.log(`${this.state.value} existe déjà !`);
+                else {
+                    this.setState(
+                        () => {
+                            this.state.users.push(this.state.value);
+                        },() => {console.log(this.state.users);}
+                    )
+                }
+                event.preventDefault();
+            }
+
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Username:
+                                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                            </label>
+                            <input type="submit" value="Add" />
+                        </form>
+                        <UserList users={this.state.users} />
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            <UserForm />,
+            container
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
