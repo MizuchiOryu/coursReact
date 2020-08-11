@@ -53,6 +53,7 @@
 
                 while (n <= 15) {
                     damier.push(<Square color={colors[n % colors.length]} num={n}/>);
+                    if(n % colors.length == 3) damier.push(<br/>)
                     n++;
                 }
 
