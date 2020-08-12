@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class UserForm extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { email: '', password: ''};
+            }
+
+            handleChangeEmail = (event) => {
+                this.setState({email: event.target.value});
+            }
+
+            handleChangePassword = (event) => {
+                this.setState({password: event.target.value});
+            }
+
+
+            handleSubmit = (event) => {
+                if(this.state.email === '' || this.state.password === '') {
+                    document.getElementById("errormsg").innerHTML="Email or password invalid";
+                }
+                else {
+                    this.setState(
+                        {
+                            email: this.state.email,
+                            password: this.state.password
+                        }
+                    )
+                    document.getElementById("errormsg").innerHTML="Success !";
+                }
+                event.preventDefault();
+            }
+
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmit}> 
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Email address</label>
+                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={this.state.email} onChange={this.handleChangeEmail} />
+                                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <div id="errormsg" style={{color:'red'}}>
+                                
+                            </div>
+                        </form>
+                        
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            <UserForm />,
+            container
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
