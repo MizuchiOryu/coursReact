@@ -58,15 +58,33 @@
                 return binary;
             }
 
-            handleChange = (e) => {
+            binaryToDecimal(binaryNumber){
+                var total = 0;
+                for(var i = 0; i < binaryNumber.length; i++){
+                    var bit = binaryNumber.charAt(binaryNumber.length - (i + 1 ));
+                    if(bit == 1){
+                        var temp = Math.pow(2, i* parseInt(bit));
+                        total += temp;
+                    }
+                }
+
+                return total;
+            }
+
+            handleChangeDecimal = (e) => {
                 this.setState({ valueDecimal: e.target.value, valueBinary: this.convertDecimalToBinary(e.target.value)});
+            }
+
+            handleChangeBinary = (e) => {
+                if((e.target.value+"").match("^[01]{1,}$"))
+                    this.setState({ valueDecimal: this.binaryToDecimal(e.target.value), valueBinary: e.target.value});
             }
 
             render() {
                 return (
                     <div>
-                        <BaseNumberInput value={this.state.valueDecimal} onChangeBase={(e) => this.handleChange(e)} />
-                        <BaseNumberInput value={this.state.valueBinary} />
+                        <BaseNumberInput value={this.state.valueDecimal} onChangeBase={(e) => this.handleChangeDecimal(e)} />
+                        <BaseNumberInput value={this.state.valueBinary} onChangeBase={(e) => this.handleChangeBinary(e)} />
                     </div>
                 );
             }
