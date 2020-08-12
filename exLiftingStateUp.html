@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        .heading{
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class BaseNumberInput extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+
+
+            render() {
+                return (
+                    <div>
+                        <input type="number" name={this.props.nameBase} value={this.props.value} onChange={this.props.onChangeBase} />
+                    </div>
+                );
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { valueDecimal: '', valueBinary: ''};
+            }
+
+            convertDecimalToBinary(number){
+                var binary = "";
+                var temp = number;
+            
+                while(temp > 0){
+                    if(temp % 2 == 0){
+                        binary = "0" + binary;
+                    }
+                    else {
+                        binary = "1" + binary;
+                    }
+
+                    temp = Math.floor(temp / 2);
+                }
+
+                return binary;
+            }
+
+            handleChange = (e) => {
+                this.setState({ valueDecimal: e.target.value, valueBinary: this.convertDecimalToBinary(e.target.value)});
+            }
+
+            render() {
+                return (
+                    <div>
+                        <BaseNumberInput value={this.state.valueDecimal} onChangeBase={(e) => this.handleChange(e)} />
+                        <BaseNumberInput value={this.state.valueBinary} />
+                    </div>
+                );
+            }
+        }
+
+        const container = document.getElementById('root');
+
+        ReactDOM.render(
+            <App />,
+            container
+        );
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+    
+    
+    
