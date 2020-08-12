@@ -25,12 +25,8 @@
                 this.state = { email: '', password: ''};
             }
 
-            handleChangeEmail = (event) => {
-                this.setState({email: event.target.value});
-            }
-
-            handleChangePassword = (event) => {
-                this.setState({password: event.target.value});
+            handleChange = (event) => {
+                this.setState({ [event.target.name]: event.target.value});
             }
 
 
@@ -56,12 +52,12 @@
                         <form onSubmit={this.handleSubmit}> 
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={this.state.email} onChange={this.handleChangeEmail} />
+                                <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={this.state.email} onChange={this.handleChange} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 </div>
                                 <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
+                                <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
                             </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
                             <div id="errormsg" style={{color:'red'}}>
