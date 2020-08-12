@@ -28,7 +28,7 @@
             render() {
                 return (
                     <div>
-                        <input type="number" name={this.props.nameBase} value={this.props.value} onChange={this.props.onChangeBase} />
+                        <input type="number" value={this.props.value} onChange={this.props.onChangeBase} />
                     </div>
                 );
             }
@@ -40,7 +40,7 @@
                 this.state = { valueDecimal: '', valueBinary: ''};
             }
 
-            convertDecimalToBinary(number){
+            DecimalToBinary(number){
                 var binary = "";
                 var temp = number;
             
@@ -58,7 +58,7 @@
                 return binary;
             }
 
-            binaryToDecimal(binaryNumber){
+            BinaryToDecimal(binaryNumber){
                 var total = 0;
                 for(var i = 0; i < binaryNumber.length; i++){
                     var bit = binaryNumber.charAt(binaryNumber.length - (i + 1 ));
@@ -72,12 +72,12 @@
             }
 
             handleChangeDecimal = (e) => {
-                this.setState({ valueDecimal: e.target.value, valueBinary: this.convertDecimalToBinary(e.target.value)});
+                this.setState({ valueDecimal: e.target.value, valueBinary: this.DecimalToBinary(e.target.value)});
             }
 
             handleChangeBinary = (e) => {
                 if((e.target.value+"").match("^[01]{1,}$"))
-                    this.setState({ valueDecimal: this.binaryToDecimal(e.target.value), valueBinary: e.target.value});
+                    this.setState({ valueDecimal: this.BinaryToDecimal(e.target.value), valueBinary: e.target.value});
             }
 
             render() {
